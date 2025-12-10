@@ -1,1 +1,1 @@
-// Base entity class - placeholder
+// Base behavior for all world entities

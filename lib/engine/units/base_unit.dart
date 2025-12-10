@@ -1,1 +1,1 @@
-// Base unit placeholder
+// Universal unit logic

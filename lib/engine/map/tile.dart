@@ -1,1 +1,1 @@
-// Tile placeholder
+// Single tile in the map grid

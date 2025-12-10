@@ -1,1 +1,1 @@
-// Helper utilities placeholder
+// Math helpers, RNG, global utilities

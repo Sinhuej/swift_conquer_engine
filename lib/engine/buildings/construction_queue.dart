@@ -1,1 +1,1 @@
-// Construction queue placeholder
+// Manages queues for unit production

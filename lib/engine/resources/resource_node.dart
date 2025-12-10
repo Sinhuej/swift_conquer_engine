@@ -1,1 +1,1 @@
-// Resource node placeholder
+// Any harvestable resource node

@@ -1,1 +1,1 @@
-// AI controller placeholder
+// High-level AI controller

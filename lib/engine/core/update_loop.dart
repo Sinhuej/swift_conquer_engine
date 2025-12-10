@@ -1,1 +1,1 @@
-// Update loop placeholder
+// Tick scheduler and game loop controller

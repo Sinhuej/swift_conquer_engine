@@ -1,1 +1,1 @@
-// UI hooks placeholder
+// Engine <-> Flutter communication hooks

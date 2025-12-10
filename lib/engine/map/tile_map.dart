@@ -1,1 +1,1 @@
-// Tile map placeholder
+// The playable terrain matrix

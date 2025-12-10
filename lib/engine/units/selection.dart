@@ -1,1 +1,1 @@
-// Selection placeholder
+// Selection box + squad assignment

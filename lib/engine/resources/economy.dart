@@ -1,1 +1,1 @@
-// Economy placeholder
+// Ore, silos, income sources

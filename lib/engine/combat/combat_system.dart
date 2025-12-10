@@ -1,1 +1,1 @@
-// Combat system placeholder
+// Damage processing, range checks, armor types

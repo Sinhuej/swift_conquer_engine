@@ -1,1 +1,1 @@
-// Power system placeholder
+// Handles power states + low power mode

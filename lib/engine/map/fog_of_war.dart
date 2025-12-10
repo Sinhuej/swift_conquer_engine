@@ -1,1 +1,1 @@
-// Fog of war placeholder
+// Fog of war reveal + conceal rules

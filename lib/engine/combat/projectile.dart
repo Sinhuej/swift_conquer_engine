@@ -1,1 +1,1 @@
-// Projectile placeholder
+// Bullets, missiles, lasers

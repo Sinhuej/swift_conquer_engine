@@ -1,1 +1,1 @@
-// Update loop system - placeholder
+// Main update dispatcher

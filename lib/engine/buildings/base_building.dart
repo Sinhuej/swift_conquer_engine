@@ -1,1 +1,1 @@
-// Base building placeholder
+// Parent class for all buildings

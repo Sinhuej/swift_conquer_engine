@@ -1,1 +1,1 @@
-// Game state placeholder
+// Global engine state transitions
