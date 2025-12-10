@@ -30,3 +30,7 @@ export 'engine/buildings/construction_queue.dart';
 export 'engine/resources/economy.dart';
 export 'engine/resources/resource_node.dart';
 export 'engine/combat/combat_system.dart';
+export 'engine/debug/debug_tools.dart';
+export 'engine/debug/sim_runner.dart';
+export 'engine/scenario/scenario.dart';
+export 'engine/scenario/demo_scenario.dart';
