@@ -1,0 +1,1 @@
+// Map grid + terrain placeholder
