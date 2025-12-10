@@ -32,3 +32,29 @@ class Engine {
     gameState.update(dtSeconds, eventBus);
   }
 }
+
+// --- Config imports (Phase 5) ---
+import 'config/game_rules.dart';
+import 'config/dlc_flags.dart';
+import 'config/anti_cheat_config.dart';
+
+/// Container for top-level configuration used by the engine.
+class EngineRuntimeConfig {
+  final GameRules gameRules;
+  final DlcFlags dlcFlags;
+  final AntiCheatConfig antiCheat;
+
+  const EngineRuntimeConfig({
+    required this.gameRules,
+    required this.dlcFlags,
+    required this.antiCheat,
+  });
+
+  factory EngineRuntimeConfig.defaultDev() {
+    return EngineRuntimeConfig(
+      gameRules: GameRules.standard(),
+      dlcFlags: DlcFlags.allOn(),
+      antiCheat: AntiCheatConfig.strict(),
+    );
+  }
+}
