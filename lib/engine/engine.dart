@@ -1,31 +1,34 @@
-library swift_conquer_engine;
+import 'dart:async';
 
-// Phase 1: Engine Skeleton
+import 'core/game_state.dart';
+import 'core/update_loop.dart';
+import 'core/event_bus.dart';
 
-export 'core/game_state.dart';
-export 'core/update_loop.dart';
-export 'core/event_bus.dart';
+/// Central simulation engine for Swift Conquer.
+///
+/// This is platform-agnostic. The Flutter/Flame app layer should:
+///  - create a GameState
+///  - create an Engine
+///  - call engine.start() / engine.stop()
+///  - subscribe to EventBus for UI updates & sounds.
+class Engine {
+  final GameState gameState;
+  final EventBus eventBus;
+  late final UpdateLoop _loop;
 
-export 'map/tile.dart';
-export 'map/tile_map.dart';
-export 'map/fog_of_war.dart';
+  Engine({
+    required this.gameState,
+    EventBus? bus,
+  }) : eventBus = bus ?? EventBus() {
+    _loop = UpdateLoop(onTick: _onTick);
+  }
 
-export 'units/base_unit.dart';
-export 'units/movement.dart';
-export 'units/selection.dart';
+  bool get isRunning => _loop.isRunning;
 
-export 'buildings/base_building.dart';
-export 'buildings/construction_queue.dart';
-export 'buildings/power_system.dart';
+  void start() => _loop.start();
+  void stop() => _loop.stop();
 
-export 'resources/resource_node.dart';
-export 'resources/economy.dart';
-
-export 'combat/combat_system.dart';
-export 'combat/projectile.dart';
-
-export 'ai/ai_controller.dart';
-export 'ai/behavior_tree.dart';
-
-export 'ui/engine_ui_hooks.dart';
-
+  void _onTick(double dtSeconds) {
+    gameState.update(dtSeconds, eventBus);
+  }
+}

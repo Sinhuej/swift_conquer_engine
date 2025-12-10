@@ -1,54 +1,61 @@
-/// Core base-building definition for Swift Conquer engine.
+import '../core/game_state.dart';
+import '../core/event_bus.dart';
+
+/// Base class for all buildings (command center, refinery, war factory, etc.).
 class BaseBuilding {
   final String id;
-  final String type; // e.g. "power_plant", "war_factory"
-  final int maxHealth;
-  final int cost; // in ore/credits
-  final int buildTimeSeconds; // how long it takes to build from 0% to 100%
+  final String ownerId;
+  final String typeId; // e.g. "UEA_REFINERY"
 
-  int _currentHealth;
-  bool _isUnderConstruction;
-  double _constructionProgress; // 0.0 to 1.0
+  final double maxHitPoints;
+  double hitPoints;
+
+  final double powerOutput; // positive for generators
+  final double powerUsage;  // positive for consumers
+
+  final double buildTimeSeconds; // how long to construct
+  final double cost;             // credit cost
+
+  double _constructionProgress = 1.0; // 0–1, 1 = built
+
+  bool get isConstructed => _constructionProgress >= 1.0;
+  bool get isAlive => hitPoints > 0;
 
   BaseBuilding({
     required this.id,
-    required this.type,
-    required this.maxHealth,
-    required this.cost,
+    required this.ownerId,
+    required this.typeId,
+    required this.maxHitPoints,
+    required this.powerOutput,
+    required this.powerUsage,
     required this.buildTimeSeconds,
-  })  : _currentHealth = maxHealth,
-        _isUnderConstruction = false,
-        _constructionProgress = 0.0;
+    required this.cost,
+  }) : hitPoints = maxHitPoints;
 
-  int get currentHealth => _currentHealth;
-  bool get isUnderConstruction => _isUnderConstruction;
-  double get constructionProgress => _constructionProgress;
-
-  /// Call when placed in build queue.
-  void startConstruction() {
-    _isUnderConstruction = true;
-    _constructionProgress = 0.0;
-    _currentHealth = 1; // tiny sliver while building
-  }
-
-  /// dtSeconds is the time step from the engine update loop.
-  void updateConstruction(double dtSeconds) {
-    if (!_isUnderConstruction || buildTimeSeconds <= 0) return;
-
-    final delta = dtSeconds / buildTimeSeconds;
-    _constructionProgress += delta;
-
-    if (_constructionProgress >= 1.0) {
+  /// For under-construction buildings.
+  void advanceConstruction(double dtSeconds) {
+    if (isConstructed) return;
+    if (buildTimeSeconds <= 0) {
       _constructionProgress = 1.0;
-      _isUnderConstruction = false;
-      _currentHealth = maxHealth;
+      return;
     }
+    _constructionProgress += dtSeconds / buildTimeSeconds;
+    if (_constructionProgress > 1.0) _constructionProgress = 1.0;
   }
 
-  void applyDamage(int amount) {
-    _currentHealth -= amount;
-    if (_currentHealth < 0) _currentHealth = 0;
+  void applyDamage(double amount) {
+    if (!isAlive) return;
+    hitPoints -= amount;
+    if (hitPoints < 0) hitPoints = 0;
   }
 
-  bool get isDestroyed => _currentHealth <= 0;
+  void heal(double amount) {
+    if (!isAlive) return;
+    hitPoints = (hitPoints + amount).clamp(0, maxHitPoints);
+  }
+
+  /// Override to implement building-specific behavior each tick.
+  void update(double dtSeconds, GameState state, EventBus bus) {
+    advanceConstruction(dtSeconds);
+  }
 }
