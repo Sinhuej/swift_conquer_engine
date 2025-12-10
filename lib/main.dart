@@ -17,6 +17,9 @@ export 'engine/map/tile.dart';
 export 'engine/map/tile_map.dart';
 export 'engine/map/fog_of_war.dart';
 export 'factions/faction.dart';
+export 'engine/factions/faction.dart';
+export 'engine/factions/faction_unit_ids.dart';
+export 'engine/factions/faction_registry.dart';
 
 // Entities & units
 export 'engine/units/base_unit.dart';
