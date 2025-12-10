@@ -1,0 +1,9 @@
+name: swift_conquer_engine
+description: Core simulation engine for Swift Conquer RTS.
+version: 0.0.1
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+# No dependencies yet, engine is pure Dart.
+dependencies:
+
